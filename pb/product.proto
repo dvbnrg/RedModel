@@ -16,6 +16,8 @@ message Product {
   string name = 2;
   string description = 3;
   float price = 4;
+  string productID = 5;
+  string url = 6;
 }
 
 message GetProductsRequest {}
