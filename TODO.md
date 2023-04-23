@@ -2,12 +2,14 @@
 
 ## TODO
 
-    - [ ] Create a simple product data model for a postgres
-    - [ ] Create a simple product data model for a redis server
+    - [ ] Create a simple product data model for postgres
+    - [ ] Create a simple product data model for redis
+    - [ ] Create a simple product data model for mongo
     - [ ] Create a docker file for gRPC server
     - [ ] Set up docker compose for gRPC server
     - [ ] Set up docker compose for postgres
     - [ ] Set up docker compose for redis
+    - [ ] Set up docker compose for mongo
 
 ## Doing
 
