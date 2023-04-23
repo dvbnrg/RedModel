@@ -8,10 +8,13 @@
     - [ ] Set up docker compose for gRPC server
     - [ ] Set up docker compose for postgres
     - [ ] Set up docker compose for redis
-    - [ ] Provision a redis database
-    - [ ] Provision a postgres database
 
 ## Doing
+
+    - [ ] Provision a redis database
+        - https://free-for.dev/#/
+    - [ ] Provision a postgres database
+        - https://free-for.dev/#/
 
 ## Done
 
