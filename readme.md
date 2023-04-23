@@ -1,0 +1,1 @@
+# Redis data modeling excercise
