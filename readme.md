@@ -13,8 +13,13 @@
 
     - [ ] Provision a redis database
         - https://free-for.dev/#/
+            - Render
+            - Upstash
+            - localhost
     - [ ] Provision a postgres database
         - https://free-for.dev/#/
+            - render
+            - localhost
 
 ## Done
 
