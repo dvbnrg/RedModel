@@ -1,2 +1,1 @@
-pb/product.pb.go
-pb/product_grpc.pb.go
+pb/*.go

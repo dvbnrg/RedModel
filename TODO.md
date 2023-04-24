@@ -10,6 +10,7 @@
     - [ ] Set up docker compose for postgres
     - [ ] Set up docker compose for redis
     - [ ] Set up docker compose for mongo
+    - [ ] Set up docker compose grpc gateway
 
 ## Doing
 
