@@ -1,4 +1,4 @@
-# Concepts
+# Concepts and Resources
 
     - Saga Pattern
         - https://microservices.io/patterns/data/saga.html
@@ -8,6 +8,14 @@
         - https://www.eventstorming.com/
         - https://www.lucidchart.com/blog/ddd-event-storming
         - https://www.ibm.com/cloud/architecture/architecture/practices/event-storming-methodology-architecture/
+    - Event Sourcing
+        - https://www.upsolver.com/blog/cqrs-event-sourcing-build-database-architecture
+        - https://www.eventstore.com/event-sourcing
+        - https://martinfowler.com/eaaDev/EventSourcing.html
+        - https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
+        - https://microservices.io/patterns/data/event-sourcing.html
+        - https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-data-persistence/service-per-team.html
+        - https://www.redhat.com/architect/pros-and-cons-event-sourcing-architecture-pattern
     - c4 model
         - https://c4model.com/
     - Design Sprint
