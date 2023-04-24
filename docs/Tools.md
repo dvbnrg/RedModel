@@ -8,3 +8,7 @@
         - https://grpc.io/
     - Go
         - https://go.dev/
+    - trpc
+        - https://trpc.io/
+    - nats
+        - https://nats.io/
