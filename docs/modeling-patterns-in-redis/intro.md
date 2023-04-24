@@ -7,3 +7,38 @@
         - How much data will you be storing?
         - What performance considerations do you need to account for?
         - How do you anticipate scaling your application?
+
+    - SQL vs NoSQL
+        - SQL is a structured query language
+        - NoSQL can mean different things:
+            - Data modeling for NoSQL vs SQL is obviously different
+            - There are also differencees in terms of scalability, with NoSQL being easier to scale horizontally
+
+    - Object Oriented Design
+        - Usually using Javascript, Java, C#
+        - Data is represented as strings, lists, sets, hashes, JSON, etc.
+        - Using SQL or document database, data wrangling into multiple tables and collections is required
+        - As a result, queries become more complicated
+            - This is called impedence mismatch and is why NoSQL exists
+        - Large applications might use other database systems such as neo4j for graph data, mongoDB for document data, influxDB for time series
+            - Using separate databases turns impedence mismatch into a database orchestration problem
+        - You have to juggle multiple connections to different databases, as well as learn the client libraries used
+        - With Redis you get:
+            - strings
+            - lists
+            - sets
+            - hashes
+            - JSON
+            - Search
+            - Graph
+            - Time Series
+            - Bloom
+        - This reduces impedence mismatch
+            - you can use a single connection or a connection pool and client library
+            - this way you end up with a simplified architecture with purpose built models that are blazing fast and simple to manage
+        - NoSQL is more than just about document stores
+        - Data Modeling in SQL is typically focused on relationships
+            - SQL is meant for set based operations on relational data
+            - NoSQL doesn't have this constraint and is much more flexible in the way you model data
+                - This can also lead to schemas being overly complex
+                - When designing your schema, be mindful of performance and try to keep things simple
