@@ -1,0 +1,10 @@
+# Resources and tools
+
+    - DB Diagram
+        - https://dbdiagram.io/home
+    - Protobuf
+        - https://protobuf.dev/
+    - gRPC
+        - https://grpc.io/
+    - Go
+        - https://go.dev/
