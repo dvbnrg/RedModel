@@ -24,4 +24,13 @@
 
 ## Combine with Domain Driven Design
 
-    - For high-level event storming, the process can end once your team has added domain events, commands, and reactions. However, event storming can be combined with the technique of domain-driven design to define the structure of your system and send your team on the way to implementation. To put it simply, you can start grouping together modules with an element called bounded contexts. Draw a box or circle around the related modules—or in Lucidchart, you can use containers—and label them. Then you can use arrows to begin context mapping—in other words, to show how the modules within a bounded context interact with other contexts. For example, you might have grouped together commands, reactions, and events that deal with payment. The payment context is linked to the shipping context, because once a payment is processed, the system needs to fire a command to ship the product that has been ordered.
+    - For high-level event storming, the process can end once your team has added domain events, commands, and reactions. 
+    - However, event storming can be combined with the technique of domain-driven design to define the structure of your system and send your team on the way to implementation. 
+    - To put it simply, you can start grouping together modules with an element called bounded contexts. 
+    - Draw a box or circle around the related modules—or in Lucidchart, you can use containers—and label them. 
+    - Then you can use arrows to begin context mapping—in other words, to show how the modules within a bounded context interact with other contexts. 
+        - For example, you might have grouped together commands, reactions, and events that deal with payment. 
+        - The payment context is linked to the shipping context, because once a payment is processed, the system needs to fire a command to ship the product that has been ordered.
+    
+    - Citation: 
+        - https://www.lucidchart.com/blog/ddd-event-storming
