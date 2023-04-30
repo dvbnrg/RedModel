@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	pb "redModel/pb"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -35,6 +36,7 @@ func main() {
 }
 
 func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetEventResponse, error) {
-	log.Printf("Received: %v", in.GetE().GetId())
+	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
+	log.Println(time.Now())
 	return &pb.GetEventResponse{E: &pb.Event{}}, nil
 }
