@@ -11,6 +11,11 @@
     - [ ] Set up docker compose for redis
     - [ ] Set up docker compose for mongo
     - [ ] Set up docker compose grpc gateway
+    - [ ] Set up k8s cluster
+        - [ ] Set up ingress
+        - [ ] Set up database
+        - [ ] Set up knative
+        - [ ] Set up gRPC gateway
 
 ## Doing
 
