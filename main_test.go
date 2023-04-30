@@ -78,3 +78,38 @@ func Test_server_GetEvent(t *testing.T) {
 		})
 	}
 }
+
+func Test_server_GetEvents(t *testing.T) {
+	type fields struct {
+		UnimplementedEventServiceServer pb.UnimplementedEventServiceServer
+	}
+	type args struct {
+		ctx context.Context
+		in  *pb.GetEventsRequest
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *pb.GetEventsResponse
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{"Hello Test Event", fields{}, args{context.Background(), &pb.GetEventsRequest{}}, &pb.GetEventsResponse{E: []*pb.Event{}}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := &server{
+				UnimplementedEventServiceServer: tt.fields.UnimplementedEventServiceServer,
+			}
+			got, err := s.GetEvents(tt.args.ctx, tt.args.in)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("server.GetEvents() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("server.GetEvents() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

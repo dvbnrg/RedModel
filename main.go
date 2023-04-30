@@ -46,3 +46,8 @@ func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetE
 	log.Println(time.Now())
 	return &pb.GetEventResponse{E: &pb.Event{}}, nil
 }
+
+func (s *server) GetEvents(ctx context.Context, in *pb.GetEventsRequest) (*pb.GetEventsResponse, error) {
+	log.Println(time.Now())
+	return &pb.GetEventsResponse{E: []*pb.Event{}}, nil
+}
