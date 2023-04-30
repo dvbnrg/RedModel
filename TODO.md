@@ -23,6 +23,7 @@
         - https://free-for.dev/#/
             - render
             - localhost
+    - [ ] Document Everything
 
 ## Done
 
