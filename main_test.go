@@ -24,7 +24,7 @@ func Test_server_GetProduct(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"test1", fields{}, args{context.Background(), &pb.GetEventRequest{E: &pb.Event{Id: "1", Name: "testEvent", Description: "test Event Description", Time: &timestamppb.Timestamp{}}}}, &pb.GetEventResponse{E: &pb.Event{}}, false},
+		{"Hello Test Event", fields{}, args{context.Background(), &pb.GetEventRequest{E: &pb.Event{Id: "1", Name: "testEvent", Description: "test Event Description", Time: &timestamppb.Timestamp{}}}}, &pb.GetEventResponse{E: &pb.Event{}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
