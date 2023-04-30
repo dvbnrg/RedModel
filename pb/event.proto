@@ -6,6 +6,7 @@ import "google/protobuf/timestamp.proto";
 service EventService {
   rpc GetEvent(GetEventRequest) returns (GetEventResponse) {}
   rpc SetEvent(SetEventResponse) returns (SetEventResponse) {}
+  rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {}
 }
 
 message Event {
@@ -22,3 +23,7 @@ message GetEventResponse { Event e = 1; }
 message SetEventRequest { Event e = 1; }
 
 message SetEventResponse { Event e = 1; }
+
+message GetEventsRequest {}
+
+message GetEventsResponse { repeated Event e = 1; }
