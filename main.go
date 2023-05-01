@@ -51,13 +51,33 @@ func connectRedis() (r *redis.Client) {
 func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetEventResponse, error) {
 	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
 	r := connectRedis()
-	err := r.HSet(in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription()).Err()
+	log.Println(in.GetE().GetId())
+	err := r.HSet(in.GetE().GetId(), "id", in.GetE().GetId()).Err()
 	if err != nil {
 		log.Println(err)
-		return &pb.SetEventResponse{}, err
+		return &pb.SetEventResponse{Ok: false}, err
 	}
-	log.Println(time.Now())
-	return &pb.SetEventResponse{}, nil
+	log.Println(in.GetE().GetName())
+	err = r.HSet(in.GetE().GetId(), "name", in.GetE().GetName()).Err()
+	if err != nil {
+		log.Println(err)
+		return &pb.SetEventResponse{Ok: false}, err
+	}
+	log.Println(in.GetE().GetDescription())
+	err = r.HSet(in.GetE().GetId(), "description", in.GetE().GetDescription()).Err()
+	if err != nil {
+		log.Println(err)
+		return &pb.SetEventResponse{Ok: false}, err
+	}
+	log.Println(in.GetE().GetTime().AsTime())
+	log.Println(in.GetE().GetTime().Seconds)
+	err = r.HSet(in.GetE().GetId(), "time", in.GetE().GetTime().AsTime()).Err()
+	if err != nil {
+		log.Println(err)
+		return &pb.SetEventResponse{Ok: false}, err
+	}
+	log.Println("current time: " + time.Now().String())
+	return &pb.SetEventResponse{Ok: true}, nil
 }
 
 func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetEventResponse, error) {

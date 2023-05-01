@@ -22,7 +22,7 @@ message GetEventResponse { Event e = 1; }
 
 message SetEventRequest { Event e = 1; }
 
-message SetEventResponse { Event e = 1; }
+message SetEventResponse { bool ok = 1; }
 
 message GetEventsRequest {}
 

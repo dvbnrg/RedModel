@@ -26,7 +26,7 @@ func Test_server_SetEvent(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Hello Test Event", fields{}, args{context.Background(), &pb.SetEventRequest{E: &pb.Event{Id: "1", Name: "testEvent", Description: "test Event Description", Time: &timestamppb.Timestamp{}}}}, &pb.SetEventResponse{}, false},
+		{"Hello Test Event", fields{}, args{context.Background(), &pb.SetEventRequest{E: &pb.Event{Id: "test", Name: "testEvent", Description: "test Event Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, &pb.SetEventResponse{Ok: true}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
