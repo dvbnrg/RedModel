@@ -163,3 +163,13 @@ func (s *server) GetEvents(ctx context.Context, in *emptypb.Empty) (*pb.GetEvent
 	}
 	return &pb.GetEventsResponse{E: events}, nil
 }
+
+func (s *server) DeleteEvent(ctx context.Context, in *pb.DeleteEventRequest) (*pb.DeleteEventResponse, error) {
+	r := connectRedis()
+	err := r.Del(in.GetE().GetId()).Err()
+	if err != nil {
+		log.Println(err)
+		return &pb.DeleteEventResponse{Ok: false}, err
+	}
+	return &pb.DeleteEventResponse{Ok: true}, nil
+}

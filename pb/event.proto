@@ -8,6 +8,7 @@ service EventService {
   rpc GetEvent(GetEventRequest) returns (GetEventResponse) {}
   rpc SetEvent(SetEventRequest) returns (SetEventResponse) {}
   rpc GetEvents(google.protobuf.Empty) returns (GetEventsResponse) {}
+  rpc DeleteEvent(DeleteEventRequest) returns (DeleteEventResponse) {}
 }
 
 message Event {
@@ -26,3 +27,7 @@ message SetEventRequest { Event e = 1; }
 message SetEventResponse { bool ok = 1; }
 
 message GetEventsResponse { repeated Event e = 1; }
+
+message DeleteEventRequest { Event e = 1; }
+
+message DeleteEventResponse { bool ok = 1; }
