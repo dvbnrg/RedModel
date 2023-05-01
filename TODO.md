@@ -4,6 +4,7 @@
 
     - [ ] Create a simple product data model for redis
         - [ ] Keep a record of relevant queries as per each data model
+    - [ ] Translate Redis queries and data model to etcd
     - [ ] Create a simple product data model for postgres
     - [ ] Create a simple product data model for mongo
     - [ ] Create a docker file for gRPC server
@@ -30,10 +31,11 @@
 
 ## Doing
 
+    - [ ] etcd version
     - [ ] High Level Planning
         - [ ] CI/CD planning
         - [ ] Test Planning and Implementation
-            - [ ] Unit Testing Redis getEvents needs to be able to accept elements in any order
+            - [ ] Unit Testing Redis get test Events needs to be able to accept elements in any order
     - [ ] Document Everything
 
 ## Done
