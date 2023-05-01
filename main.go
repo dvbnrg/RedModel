@@ -16,6 +16,7 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -126,7 +127,7 @@ func stringToTime(s string) (time.Time, error) {
 	return time.Unix(sec, 0), nil
 }
 
-func (s *server) GetEvents(ctx context.Context, in *pb.GetEventsRequest) (*pb.GetEventsResponse, error) {
+func (s *server) GetEvents(ctx context.Context, in *emptypb.Empty) (*pb.GetEventsResponse, error) {
 	r := connectRedis()
 	events := []*pb.Event{}
 	keys, err := r.Keys("*").Result()

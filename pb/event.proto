@@ -2,11 +2,12 @@ syntax = "proto3";
 package pb;
 option go_package = ".;";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 service EventService {
   rpc GetEvent(GetEventRequest) returns (GetEventResponse) {}
   rpc SetEvent(SetEventRequest) returns (SetEventResponse) {}
-  rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {}
+  rpc GetEvents(google.protobuf.Empty) returns (GetEventsResponse) {}
 }
 
 message Event {
@@ -23,7 +24,5 @@ message GetEventResponse { Event e = 1; }
 message SetEventRequest { Event e = 1; }
 
 message SetEventResponse { bool ok = 1; }
-
-message GetEventsRequest {}
 
 message GetEventsResponse { repeated Event e = 1; }

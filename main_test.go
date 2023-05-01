@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	_ "github.com/joho/godotenv/autoload"
+	"google.golang.org/protobuf/types/known/emptypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -87,7 +88,7 @@ func Test_server_GetEvents(t *testing.T) {
 	}
 	type args struct {
 		ctx context.Context
-		in  *pb.GetEventsRequest
+		in  *emptypb.Empty
 	}
 	tests := []struct {
 		name    string
@@ -97,7 +98,7 @@ func Test_server_GetEvents(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Hello Test Event", fields{}, args{context.Background(), &pb.GetEventsRequest{}}, &pb.GetEventsResponse{E: []*pb.Event{{Id: "test2", Name: "testEvent2", Description: "test Event 2 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}, {Id: "test1", Name: "testEvent1", Description: "test Event 1 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, false},
+		{"Hello Test Event", fields{}, args{context.Background(), &emptypb.Empty{}}, &pb.GetEventsResponse{E: []*pb.Event{{Id: "test2", Name: "testEvent2", Description: "test Event 2 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}, {Id: "test1", Name: "testEvent1", Description: "test Event 1 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
