@@ -33,6 +33,7 @@
     - [ ] High Level Planning
         - [ ] CI/CD planning
         - [ ] Test Planning and Implementation
+            - [ ] Unit Testing Redis getEvents needs to be able to accept elements in any order
     - [ ] Document Everything
 
 ## Done
