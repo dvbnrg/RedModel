@@ -116,6 +116,7 @@ func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetE
 	return &pb.GetEventResponse{E: event}, nil
 }
 
+// https://stackoverflow.com/questions/43431046/convert-unix-epoch-as-a-string-to-time-time-on-go
 func stringToTime(s string) (time.Time, error) {
 	sec, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
