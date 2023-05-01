@@ -6,9 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	pb "redModel/pb"
 	"time"
 
+	"github.com/go-redis/redis"
+	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
 )
 
@@ -37,6 +41,16 @@ func main() {
 
 func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetEventResponse, error) {
 	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
+	godotenv.Load(".env")
+	r := os.Getenv("REDIS")
+	fmt.Println("Testing Golang Redis")
+	client := redis.NewClient(&redis.Options{
+		Addr:     r,
+		Password: "",
+		DB:       0,
+	})
+	pong, err := client.Ping().Result()
+	fmt.Println(pong, err)
 	log.Println(time.Now())
 	return &pb.SetEventResponse{}, nil
 }
