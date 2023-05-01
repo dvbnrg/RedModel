@@ -2,8 +2,9 @@
 
 ## TODO
 
-    - [ ] Create a simple product data model for postgres
     - [ ] Create a simple product data model for redis
+        - [ ] Keep a record of relevant queries as per each data model
+    - [ ] Create a simple product data model for postgres
     - [ ] Create a simple product data model for mongo
     - [ ] Create a docker file for gRPC server
         - [ ] Set up alpine, busybox and scratch images
