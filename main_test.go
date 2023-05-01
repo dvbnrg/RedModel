@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"testing"
 
+	_ "github.com/joho/godotenv/autoload"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 

@@ -39,18 +39,23 @@ func main() {
 	}
 }
 
+func connectRedis() (r *redis.Client) {
+	godotenv.Load(".env")
+	url := os.Getenv("REDIS")
+	client := redis.NewClient(&redis.Options{Addr: url, Password: "", DB: 0})
+	// pong, err := client.Ping().Result()
+	// log.Println(pong, err)
+	return client
+}
+
 func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetEventResponse, error) {
 	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
-	godotenv.Load(".env")
-	r := os.Getenv("REDIS")
-	fmt.Println("Testing Golang Redis")
-	client := redis.NewClient(&redis.Options{
-		Addr:     r,
-		Password: "",
-		DB:       0,
-	})
-	pong, err := client.Ping().Result()
-	fmt.Println(pong, err)
+	r := connectRedis()
+	err := r.HSet(in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription()).Err()
+	if err != nil {
+		log.Println(err)
+		return &pb.SetEventResponse{}, err
+	}
 	log.Println(time.Now())
 	return &pb.SetEventResponse{}, nil
 }
