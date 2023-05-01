@@ -14,4 +14,3 @@
     🔹 r-tree: for finding the nearest neighbor
     🔹 vertex buffer: for sending data to GPU for rendering 
     🔹 segment tree: for finding the nearest neighbor
-    🔹 graph: for tracking friendship, or path finding
