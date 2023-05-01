@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
@@ -51,39 +52,39 @@ func connectRedis() (r *redis.Client) {
 }
 
 func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetEventResponse, error) {
-	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
+	// log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
 	r := connectRedis()
-	log.Println(in.GetE().GetId())
+	// log.Println(in.GetE().GetId())
 	err := r.HSet(in.GetE().GetId(), "id", in.GetE().GetId()).Err()
 	if err != nil {
 		log.Println(err)
 		return &pb.SetEventResponse{Ok: false}, err
 	}
-	log.Println(in.GetE().GetName())
+	// log.Println(in.GetE().GetName())
 	err = r.HSet(in.GetE().GetId(), "name", in.GetE().GetName()).Err()
 	if err != nil {
 		log.Println(err)
 		return &pb.SetEventResponse{Ok: false}, err
 	}
-	log.Println(in.GetE().GetDescription())
+	// log.Println(in.GetE().GetDescription())
 	err = r.HSet(in.GetE().GetId(), "description", in.GetE().GetDescription()).Err()
 	if err != nil {
 		log.Println(err)
 		return &pb.SetEventResponse{Ok: false}, err
 	}
-	log.Println(in.GetE().GetTime().AsTime())
-	log.Println(in.GetE().GetTime().Seconds)
+	// log.Println(in.GetE().GetTime().AsTime())
+	// log.Println(in.GetE().GetTime().Seconds)
 	err = r.HSet(in.GetE().GetId(), "time", in.GetE().GetTime().Seconds).Err()
 	if err != nil {
 		log.Println(err)
 		return &pb.SetEventResponse{Ok: false}, err
 	}
-	log.Println("current time: " + time.Now().String())
+	// log.Println("current time: " + time.Now().String())
 	return &pb.SetEventResponse{Ok: true}, nil
 }
 
 func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetEventResponse, error) {
-	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
+	// log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
 	event := &pb.Event{}
 	r := connectRedis()
 	id, err := r.HGet(in.GetE().GetId(), "id").Result()
@@ -126,6 +127,38 @@ func stringToTime(s string) (time.Time, error) {
 }
 
 func (s *server) GetEvents(ctx context.Context, in *pb.GetEventsRequest) (*pb.GetEventsResponse, error) {
-	log.Println(time.Now())
-	return &pb.GetEventsResponse{E: []*pb.Event{}}, nil
+	r := connectRedis()
+	events := []*pb.Event{}
+	keys, err := r.Keys("*").Result()
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventsResponse{E: events}, err
+	}
+	for _, key := range keys {
+		event := &pb.Event{}
+		event.Id = key
+		event.Name, err = r.HGet(key, "name").Result()
+		if err != nil {
+			log.Println(err)
+			return &pb.GetEventsResponse{E: events}, err
+		}
+		event.Description, err = r.HGet(key, "description").Result()
+		if err != nil {
+			log.Println(err)
+			return &pb.GetEventsResponse{E: events}, err
+		}
+		time, err := r.HGet(key, "time").Result()
+		if err != nil {
+			log.Println(err)
+			return &pb.GetEventsResponse{E: events}, err
+		}
+		t, err := stringToTime(time)
+		if err != nil {
+			log.Println(err)
+			return &pb.GetEventsResponse{E: events}, err
+		}
+		event.Time = &timestamp.Timestamp{Seconds: t.Unix()}
+		events = append(events, event)
+	}
+	return &pb.GetEventsResponse{E: events}, nil
 }

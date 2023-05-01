@@ -27,6 +27,7 @@ func Test_server_SetEvent(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Set Test Event 1", fields{}, args{context.Background(), &pb.SetEventRequest{E: &pb.Event{Id: "test1", Name: "testEvent1", Description: "test Event 1 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, &pb.SetEventResponse{Ok: true}, false},
+		{"Set Test Event 2", fields{}, args{context.Background(), &pb.SetEventRequest{E: &pb.Event{Id: "test2", Name: "testEvent2", Description: "test Event 2 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, &pb.SetEventResponse{Ok: true}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -96,7 +97,7 @@ func Test_server_GetEvents(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Hello Test Event", fields{}, args{context.Background(), &pb.GetEventsRequest{}}, &pb.GetEventsResponse{E: []*pb.Event{}}, false},
+		{"Hello Test Event", fields{}, args{context.Background(), &pb.GetEventsRequest{}}, &pb.GetEventsResponse{E: []*pb.Event{{Id: "test2", Name: "testEvent2", Description: "test Event 2 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}, {Id: "test1", Name: "testEvent1", Description: "test Event 1 Description", Time: &timestamppb.Timestamp{Seconds: 1525138858}}}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
