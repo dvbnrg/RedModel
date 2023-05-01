@@ -8,12 +8,14 @@ import (
 	"net"
 	"os"
 	pb "redModel/pb"
+	"strconv"
 	"time"
 
 	"github.com/go-redis/redis"
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 var (
@@ -71,7 +73,7 @@ func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetE
 	}
 	log.Println(in.GetE().GetTime().AsTime())
 	log.Println(in.GetE().GetTime().Seconds)
-	err = r.HSet(in.GetE().GetId(), "time", in.GetE().GetTime().AsTime()).Err()
+	err = r.HSet(in.GetE().GetId(), "time", in.GetE().GetTime().Seconds).Err()
 	if err != nil {
 		log.Println(err)
 		return &pb.SetEventResponse{Ok: false}, err
@@ -82,8 +84,44 @@ func (s *server) SetEvent(ctx context.Context, in *pb.SetEventRequest) (*pb.SetE
 
 func (s *server) GetEvent(ctx context.Context, in *pb.GetEventRequest) (*pb.GetEventResponse, error) {
 	log.Printf("Received: %v %v %v %v", in.GetE().GetId(), in.GetE().GetName(), in.GetE().GetDescription(), in.GetE().GetTime())
-	log.Println(time.Now())
-	return &pb.GetEventResponse{E: &pb.Event{}}, nil
+	event := &pb.Event{}
+	r := connectRedis()
+	id, err := r.HGet(in.GetE().GetId(), "id").Result()
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventResponse{E: &pb.Event{}}, err
+	}
+	event.Id = id
+	event.Name, err = r.HGet(in.GetE().GetId(), "name").Result()
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventResponse{E: &pb.Event{}}, err
+	}
+	event.Description, err = r.HGet(in.GetE().GetId(), "description").Result()
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventResponse{E: &pb.Event{}}, err
+	}
+	time, err := r.HGet(in.GetE().GetId(), "time").Result()
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventResponse{E: &pb.Event{}}, err
+	}
+	t, err := stringToTime(time)
+	if err != nil {
+		log.Println(err)
+		return &pb.GetEventResponse{E: &pb.Event{}}, err
+	}
+	event.Time = &timestamppb.Timestamp{Seconds: t.Unix()}
+	return &pb.GetEventResponse{E: event}, nil
+}
+
+func stringToTime(s string) (time.Time, error) {
+	sec, err := strconv.ParseInt(s, 10, 64)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return time.Unix(sec, 0), nil
 }
 
 func (s *server) GetEvents(ctx context.Context, in *pb.GetEventsRequest) (*pb.GetEventsResponse, error) {
