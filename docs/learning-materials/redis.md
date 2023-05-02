@@ -6,7 +6,7 @@
     - https://redis.io/docs/reference/internals/internals-rediseventlib/
     - https://www.harness.io/blog/event-driven-architecture-redis-streams
 
-    Latency numbers every developer should know.
+## Latency numbers every developer should know
 
     🔹L1 and L2 caches: 1 ns, 10 ns
     E.g.: They are usually built onto the microprocessor chip. Unless you work with hardware directly, you probably don’t need to worry about them.
